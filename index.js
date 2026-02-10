@@ -1,7 +1,7 @@
 // importaciones
-/*
+
 import dotenv from 'dotenv';
-import { initServer } from "./configs/app.js";
+import { initServer } from "./config/app.js";
 
 // Configuracion de variables de entorno
 dotenv.config();
@@ -22,4 +22,3 @@ process.on('uncaughtException', (reason, promise) => {
 console.log('Iniciando servidor...');
 initServer();
 
-*/

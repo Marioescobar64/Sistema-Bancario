@@ -39,8 +39,11 @@ const cardSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
     }
-
-});
+},
+    {
+    timestamps: true,
+  }
+);
 
  cardSchema.index({ isActive: 1  });
 cardSchema.index({ ownerCard: 1  });

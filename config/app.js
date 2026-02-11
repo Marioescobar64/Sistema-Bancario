@@ -26,11 +26,10 @@ const middlewares = (app) => {
 
 // Rutas de integracion de todas las rutas
 
-/*
+
 const routes =(app) => {
-    app.use(`${BASE_URL}/contactos`, contactoRoutes);
+    app.use(`${BASE_URL}/cards`, cardsRoutes);
 }
-*/
 
 // funcion para iniciar el servidor
 const initServer = async (app) => {

@@ -33,7 +33,7 @@ export const dbConnection = async () => {
     });
 
     // Menciona que URI_MONGODB es una variable de entorno
-await mongoose.connect(process.env.URI_MONGODB, {
+await mongoose.connect(process.env.URL_MONGODB, {
   serverSelectionTimeoutMS: 5000,
   maxPoolSize: 10,
 });

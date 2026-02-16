@@ -1,4 +1,4 @@
-import Card from './card.model.js';
+import Card from './card-model.js';
 import { cloudinary } from '../../middlewares/file-uploader.js';
 
 // Obtener todas las tarjetas con paginación y filtros

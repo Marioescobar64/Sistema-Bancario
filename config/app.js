@@ -8,8 +8,7 @@ import { corsOptions } from './cors-configuration.js';
 import { dbConnection } from './db.js';
 
 // Rutas
-
-// import contactoRoutes from '../src/contactos/contactos-routes.js'
+import cardsRoutes from '../src/cards/card-routes.js'
 
 const BASE_URL = '/veraff/v1';
 

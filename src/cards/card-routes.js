@@ -5,7 +5,7 @@ import {
   createCard,
   updateCard,
   changeCardStatus,
-} from './card.controller.js';
+} from './card-controller.js';
 
 import {
   validateCreateCard,

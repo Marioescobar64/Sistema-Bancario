@@ -1528,11 +1528,11 @@
         "dependencies": {
           "AuthService.Domain": "1.0.0",
           "FluentValidation": "12.1.1",
-          "Mailkit": "4.15.0",
+          "MailKit": "4.15.0",
           "Microsoft.Extensions.Configuration": "10.0.2",
           "Microsoft.Extensions.DependencyInjection": "10.0.2",
           "Microsoft.Extensions.Logging.Abstractions": "10.0.3",
-          "Mimekit": "4.15.0"
+          "MimeKit": "4.15.0"
         },
         "compile": {
           "bin/placeholder/AuthService.Application.dll": {}
@@ -3995,26 +3995,25 @@
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 8.0.20",
       "Microsoft.AspNetCore.OpenApi >= 8.0.22",
       "Microsoft.EntityFrameworkCore.Design >= 8.0.20",
-      "Mimekit >= 4.15.0",
       "NetEscapades.AspNetCore.SecurityHeaders >= 1.2.0",
       "Serilog.AspNetCore >= 9.0.0",
       "Swashbuckle.AspNetCore >= 9.0.4"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\pc\\.nuget\\packages\\": {}
+    "C:\\Users\\PC\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\2022471\\Sistema-Bancario\\src\\AuthService.Api\\AuthService.Api.csproj",
+      "projectUniqueName": "C:\\2024018\\Sistema-Bancario\\src\\AuthService.Api\\AuthService.Api.csproj",
       "projectName": "AuthService.Api",
-      "projectPath": "C:\\2022471\\Sistema-Bancario\\src\\AuthService.Api\\AuthService.Api.csproj",
-      "packagesPath": "C:\\Users\\pc\\.nuget\\packages\\",
-      "outputPath": "C:\\2022471\\Sistema-Bancario\\src\\AuthService.Api\\obj\\",
+      "projectPath": "C:\\2024018\\Sistema-Bancario\\src\\AuthService.Api\\AuthService.Api.csproj",
+      "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
+      "outputPath": "C:\\2024018\\Sistema-Bancario\\src\\AuthService.Api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\pc\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -4026,11 +4025,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\2022471\\Sistema-Bancario\\src\\AuthService.Application\\AuthService.Application.csproj": {
-              "projectPath": "C:\\2022471\\Sistema-Bancario\\src\\AuthService.Application\\AuthService.Application.csproj"
+            "C:\\2024018\\Sistema-Bancario\\src\\AuthService.Application\\AuthService.Application.csproj": {
+              "projectPath": "C:\\2024018\\Sistema-Bancario\\src\\AuthService.Application\\AuthService.Application.csproj"
             },
-            "C:\\2022471\\Sistema-Bancario\\src\\AuthService.Persistence\\AuthService.Persistence.csproj": {
-              "projectPath": "C:\\2022471\\Sistema-Bancario\\src\\AuthService.Persistence\\AuthService.Persistence.csproj"
+            "C:\\2024018\\Sistema-Bancario\\src\\AuthService.Persistence\\AuthService.Persistence.csproj": {
+              "projectPath": "C:\\2024018\\Sistema-Bancario\\src\\AuthService.Persistence\\AuthService.Persistence.csproj"
             }
           }
         }
@@ -4044,7 +4043,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "10.0.100"
     },
     "frameworks": {
       "net8.0": {
@@ -4061,10 +4061,6 @@
           "Microsoft.EntityFrameworkCore.Design": {
             "target": "Package",
             "version": "[8.0.20, )"
-          },
-          "Mimekit": {
-            "target": "Package",
-            "version": "[4.15.0, )"
           },
           "NetEscapades.AspNetCore.SecurityHeaders": {
             "target": "Package",
@@ -4090,6 +4086,24 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[8.0.24, 8.0.24]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[8.0.24, 8.0.24]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[8.0.24, 8.0.24]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[8.0.24, 8.0.24]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -4098,7 +4112,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\dotnet\\sdk\\8.0.418/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

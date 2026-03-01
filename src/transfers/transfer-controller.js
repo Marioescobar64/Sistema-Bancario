@@ -1,4 +1,4 @@
-import Transferencia from './transferencia-model.js';
+import Transferencia from './transfer-model.js';
 
 // Obtener todas las transferencias con paginación y filtros
 export const getTransferencias = async (req, res) => {

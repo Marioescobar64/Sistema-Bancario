@@ -9,11 +9,13 @@ const transferenciaSchema = new mongoose.Schema({
         trim: true,
         maxLength: [100, 'El nombre del titular no puede tener más de 100 caracteres']
     },
+
     accountNumber: {
         type: String,
         required: [true, 'El número de cuenta es obligatorio'],
         trim: true
     },
+
     accountType: {
         type: String,
         required: [true, 'El tipo de cuenta es obligatorio'],
@@ -23,6 +25,7 @@ const transferenciaSchema = new mongoose.Schema({
             message: '{VALUE} no es un tipo de cuenta válido, debe ser Monetaria o Ahorro'
         }
     },
+    
     amount: {
         type: Number,
         required: [true, 'El monto a enviar es obligatorio'],

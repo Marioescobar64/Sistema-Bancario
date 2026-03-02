@@ -3,6 +3,7 @@
 import mongoose, { mongo } from 'mongoose';
 
 const cardSchema = new mongoose.Schema({
+    
         ownerCard: {
         type: String,
         required: true,

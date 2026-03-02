@@ -37,7 +37,7 @@ router.get(
 
 router.post(
   '/',
-  uploadFieldImage.single('image'), // campo del form-data
+  uploadFieldImage.single('photo'), // campo del form-data
   cleanupUploadedFileOnFinish,
   validateCreateCard,
   createCard
@@ -49,7 +49,7 @@ router.post(
 
 router.put(
   '/:id',
-  uploadFieldImage.single('image'),
+  uploadFieldImage.single('photo'),
   validateUpdateCardRequest,
   updateCard
 );

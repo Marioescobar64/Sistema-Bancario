@@ -1,69 +1,70 @@
 'use strict';
 
-// Importaciones
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import { corsOptions } from './cors-configuration.js';
 import { dbConnection } from './db.js';
-
-// Rutas
 import cardsRoutes from '../src/cards/card-routes.js';
 import transferRoutes from '../src/transfers/transfer-routes.js';
 import suspiciousMovementRoutes from '../src/suspiciousMovements/suspiciousMovement-routes.js';
+import userRoutes from '../src/users/user-routes.js';
+import accountRoutes from '../src/accounts/account-routes.js';
+import loanRoutes from '../src/loans/loan-routes.js';
+import roleRoutes from '../src/roles/role-routes.js';
 
 const BASE_URL = '/veraff/v1';
 
-// Configuracion de los middlewares (la aplicacion)
 const middlewares = (app) => {
-    app.use(express.urlencoded({ extended: false, limit: '10mb'}));
-    // esta linea le indica a express que los archivos tengan un limite de 10mb
-    app.use(express.json({limit: '10mb'}));
-    // cors utiliza la funcion que creamos en cors-configuration
+    app.use(express.urlencoded({ extended: false, limit: '10mb' }));
+    app.use(express.json({ limit: '10mb' }));
     app.use(cors(corsOptions));
-    // Morgan se encarga del manejo de errores
     app.use(morgan('dev'));
-}
+};
 
-// Rutas de integracion de todas las rutas
+const routes = (app) => {
 
+    // Health Check
+    app.get(`${BASE_URL}/health`, (req, res) => {
+        res.status(200).json({
+            status: 'ok',
+            service: 'veraff Admin',
+            version: '1.0.0'
+        });
+    });
 
-const routes =(app) => {
+    // Módulos del sistema
+    app.use(`${BASE_URL}/users`, userRoutes);
+    app.use(`${BASE_URL}/roles`, roleRoutes);
+    app.use(`${BASE_URL}/accounts`, accountRoutes);
     app.use(`${BASE_URL}/cards`, cardsRoutes);
     app.use(`${BASE_URL}/transfers`, transferRoutes);
+    app.use(`${BASE_URL}/loans`, loanRoutes);
     app.use(`${BASE_URL}/suspicious`, suspiciousMovementRoutes);
-}
+};
 
-// funcion para iniciar el servidor
-const initServer = async (app) => {
-    // Creacion de la instancia de la aplicacion
-    app = express();
+const initServer = async () => {
+
+    const app = express();
     const PORT = process.env.PORT || 3001;
 
     try {
-        dbConnection();
+
+        await dbConnection();
+
         middlewares(app);
         routes(app);
-        
-        app.listen(PORT, () => {
-            console.log(`Servidor corriendo en el puerto ${PORT}`);
-            console.log(`Base URL: http://localhost:${PORT}${BASE_URL}`)
-        });
 
-        // Primera ruta
-        app.get(`${BASE_URL}/health`, (req, res) => { 
-            res.status(200).json(
-                {
-                    status: 'ok',
-                    service: 'veraff Admin',
-                    version: '1.0.0'
-                }
-            );
+        app.listen(PORT, () => {
+            console.log('=================================');
+            console.log(`Servidor corriendo en puerto ${PORT}`);
+            console.log(`Base URL: http://localhost:${PORT}${BASE_URL}`);
+            console.log('=================================');
         });
 
     } catch (error) {
-        console.log(error);
+        console.error('Error al iniciar el servidor:', error);
     }
-}
+};
 
-export  { initServer };
+export { initServer };

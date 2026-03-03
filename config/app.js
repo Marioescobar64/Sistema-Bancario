@@ -9,7 +9,8 @@ import { dbConnection } from './db.js';
 
 // Rutas
 
-// import contactoRoutes from '../src/contactos/contactos-routes.js'
+import cardsRoutes from '../src/cards/card-routes.js';
+import transferRoutes from '../src/transfers/transfer-routes.js';
 
 const BASE_URL = '/veraff/v1';
 
@@ -29,6 +30,7 @@ const middlewares = (app) => {
 
 const routes =(app) => {
     app.use(`${BASE_URL}/cards`, cardsRoutes);
+    app.use(`${BASE_URL}/transfers`, transferRoutes);
 }
 
 // funcion para iniciar el servidor

@@ -36,7 +36,6 @@ const accountSchema = new mongoose.Schema({
   timestamps: true
 });
 
-accountSchema.index({ accountNumber: 1 });
 accountSchema.index({ user: 1 });
 accountSchema.index({ isActive: 1 });
 

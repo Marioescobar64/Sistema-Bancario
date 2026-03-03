@@ -1,22 +1,67 @@
+'use strict';
+
 import { Router } from 'express';
 import {
+  createAccount,
   getAccounts,
   getAccountById,
-  createAccount,
   updateAccount,
-  changeAccountStatus,
+  changeAccountStatus
 } from './account-controller.js';
+
+import {
+  validateCreateAccount,
+  validateUpdateAccount,
+  validateAccountStatusChange,
+  validateGetAccountById
+} from '../../middlewares/account-validation.js';
+
+import { verifyToken, authorizeRoles } from '../../middlewares/auth-middleware.js';
 
 const router = Router();
 
-router.get('/', getAccounts);
-router.get('/:id', getAccountById);
+// Crear cuenta (ADMIN)
+router.post(
+  '/',
+  verifyToken,
+  authorizeRoles('ADMIN'),
+  validateCreateAccount,
+  createAccount
+);
 
-router.post('/', createAccount);
+// Obtener cuentas
+router.get(
+  '/',
+  verifyToken,
+  authorizeRoles('ADMIN', 'USER'),
+  getAccounts
+);
 
-router.put('/:id', updateAccount);
+// Obtener por ID
+router.get(
+  '/:id',
+  verifyToken,
+  authorizeRoles('ADMIN', 'USER'),
+  validateGetAccountById,
+  getAccountById
+);
 
-router.put('/:id/activate', changeAccountStatus);
-router.put('/:id/deactivate', changeAccountStatus);
+// Actualizar
+router.put(
+  '/:id',
+  verifyToken,
+  authorizeRoles('ADMIN'),
+  validateUpdateAccount,
+  updateAccount
+);
+
+// Activar / Desactivar
+router.patch(
+  '/status/:id',
+  verifyToken,
+  authorizeRoles('ADMIN'),
+  validateAccountStatusChange,
+  changeAccountStatus
+);
 
 export default router;

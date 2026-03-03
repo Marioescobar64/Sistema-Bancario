@@ -1,38 +1,52 @@
+'use strict';
+
 import { Router } from 'express';
 import {
+  createRole,
   getRoles,
   getRoleById,
-  createRole,
-  updateRole,
-  deleteRole,
+  updateRole
 } from './role-controller.js';
+
+import {
+  validateCreateRole,
+  validateUpdateRole,
+  validateGetRoleById
+} from '../../middlewares/role-validation.js';
+
+import { verifyToken, authorizeRoles } from '../../middlewares/auth-middleware.js';
 
 const router = Router();
 
-// ====================
-// RUTAS GET
-// ====================
+router.post(
+  '/',
+  verifyToken,
+  authorizeRoles('ADMIN'),
+  validateCreateRole,
+  createRole
+);
 
-router.get('/', getRoles);
+router.get(
+  '/',
+  verifyToken,
+  authorizeRoles('ADMIN'),
+  getRoles
+);
 
-router.get('/:id', getRoleById);
+router.get(
+  '/:id',
+  verifyToken,
+  authorizeRoles('ADMIN'),
+  validateGetRoleById,
+  getRoleById
+);
 
-// ====================
-// RUTAS POST
-// ====================
-
-router.post('/', createRole);
-
-// ====================
-// RUTAS PUT
-// ====================
-
-router.put('/:id', updateRole);
-
-// ====================
-// RUTAS DELETE
-// ====================
-
-router.delete('/:id', deleteRole);
+router.put(
+  '/:id',
+  verifyToken,
+  authorizeRoles('ADMIN'),
+  validateUpdateRole,
+  updateRole
+);
 
 export default router;

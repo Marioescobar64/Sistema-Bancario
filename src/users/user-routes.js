@@ -1,36 +1,67 @@
+'use strict';
+
 import { Router } from 'express';
 import {
+  createUser,
   getUsers,
   getUserById,
-  createUser,
   updateUser,
-  changeUserStatus,
+  changeUserStatus
 } from './user-controller.js';
+
+import {
+  validateCreateUser,
+  validateUpdateUser,
+  validateUserStatusChange,
+  validateGetUserById
+} from '../../middlewares/user-validation.js';
+
+import { verifyToken, authorizeRoles } from '../../middlewares/auth-middleware.js';
 
 const router = Router();
 
-// ====================
-// RUTAS GET
-// ====================
+// Crear usuario (solo ADMIN)
+router.post(
+  '/',
+  verifyToken,
+  authorizeRoles('ADMIN'),
+  validateCreateUser,
+  createUser
+);
 
-router.get('/', getUsers);
+// Obtener todos
+router.get(
+  '/',
+  verifyToken,
+  authorizeRoles('ADMIN'),
+  getUsers
+);
 
-router.get('/:id', getUserById);
+// Obtener por ID
+router.get(
+  '/:id',
+  verifyToken,
+  authorizeRoles('ADMIN'),
+  validateGetUserById,
+  getUserById
+);
 
-// ====================
-// RUTAS POST
-// ====================
+// Actualizar
+router.put(
+  '/:id',
+  verifyToken,
+  authorizeRoles('ADMIN'),
+  validateUpdateUser,
+  updateUser
+);
 
-router.post('/', createUser);
-
-// ====================
-// RUTAS PUT
-// ====================
-
-router.put('/:id', updateUser);
-
-router.put('/:id/activate', changeUserStatus);
-
-router.put('/:id/deactivate', changeUserStatus);
+// Activar / Desactivar
+router.patch(
+  '/status/:id',
+  verifyToken,
+  authorizeRoles('ADMIN'),
+  validateUserStatusChange,
+  changeUserStatus
+);
 
 export default router;

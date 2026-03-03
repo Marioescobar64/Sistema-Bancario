@@ -1,38 +1,62 @@
+'use strict';
+
 import { Router } from 'express';
 import {
+  createLoan,
   getLoans,
   getLoanById,
-  createLoan,
   updateLoan,
-  changeLoanStatus,
+  changeLoanStatus
 } from './loan-controller.js';
+
+import {
+  validateCreateLoan,
+  validateUpdateLoan,
+  validateLoanStatusChange,
+  validateGetLoanById
+} from '../../middlewares/loan-validation.js';
+
+import { verifyToken, authorizeRoles } from '../../middlewares/auth-middleware.js';
 
 const router = Router();
 
-// ====================
-// RUTAS GET
-// ====================
+router.post(
+  '/',
+  verifyToken,
+  authorizeRoles('ADMIN'),
+  validateCreateLoan,
+  createLoan
+);
 
-router.get('/', getLoans);
+router.get(
+  '/',
+  verifyToken,
+  authorizeRoles('ADMIN', 'USER'),
+  getLoans
+);
 
-router.get('/:id', getLoanById);
+router.get(
+  '/:id',
+  verifyToken,
+  authorizeRoles('ADMIN', 'USER'),
+  validateGetLoanById,
+  getLoanById
+);
 
-// ====================
-// RUTAS POST
-// ====================
+router.put(
+  '/:id',
+  verifyToken,
+  authorizeRoles('ADMIN'),
+  validateUpdateLoan,
+  updateLoan
+);
 
-router.post('/', createLoan);
-
-// ====================
-// RUTAS PUT
-// ====================
-
-router.put('/:id', updateLoan);
-
-router.put('/:id/approve', changeLoanStatus);
-
-router.put('/:id/reject', changeLoanStatus);
-
-router.put('/:id/pay', changeLoanStatus);
+router.patch(
+  '/status/:id',
+  verifyToken,
+  authorizeRoles('ADMIN'),
+  validateLoanStatusChange,
+  changeLoanStatus
+);
 
 export default router;

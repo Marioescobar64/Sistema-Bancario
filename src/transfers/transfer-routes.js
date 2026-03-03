@@ -2,7 +2,7 @@
 
 import { Router } from 'express';
 import { createTransfer, getTransfers } from './transfer-controller.js';
-import { validateCreateTransfer } from '../../middlewares/transfer-validation.js';
+import { validateCreateTransferencia } from '../../middlewares/transfer-validation.js';
 import { verifyToken, authorizeRoles } from '../../middlewares/auth-middleware.js';
 
 const router = Router();
@@ -12,7 +12,7 @@ router.post(
   '/',
   verifyToken,
   authorizeRoles('USER', 'ADMIN'),
-  validateCreateTransfer,
+  validateCreateTransferencia,
   createTransfer
 );
 

@@ -2,6 +2,47 @@ import mongoose from 'mongoose';
 import Transfer from './transfer-model.js';
 import Account from '../accounts/account-model.js';
 
+export const getTransfers = async (req, res) => {
+  try {
+
+    const { page = 1, limit = 10, account } = req.query;
+
+    const query = {};
+
+    // Si se envía un ID de cuenta, filtra por esa cuenta
+    if (account) {
+      query.$or = [
+        { fromAccount: account },
+        { toAccount: account }
+      ];
+    }
+
+    const transfers = await Transfer.find(query)
+      .populate('fromAccount', 'accountNumber balance')
+      .populate('toAccount', 'accountNumber balance')
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * limit)
+      .limit(Number(limit));
+
+    const total = await Transfer.countDocuments(query);
+
+    res.status(200).json({
+      success: true,
+      total,
+      page: Number(page),
+      pages: Math.ceil(total / limit),
+      data: transfers
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error al obtener transferencias',
+      error: error.message
+    });
+  }
+};
+
 export const createTransfer = async (req, res) => {
   const session = await mongoose.startSession();
   session.startTransaction();

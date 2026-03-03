@@ -1,6 +1,7 @@
 'use strict';
 
 import mongoose from 'mongoose';
+import { createDefaultAdmin } from '../src/users/default-admin.js';
 
 export const dbConnection = async () => {
   try {
@@ -44,6 +45,12 @@ await mongoose.connect(process.env.URL_MONGODB, {
 }
 
 };
+
+mongoose.connection.once('open', async () => {
+  console.log('MongoDB conectado');
+
+  await createDefaultAdmin();
+});
 
 // -----------------------------------------
 // CIERRE CONTROLADO

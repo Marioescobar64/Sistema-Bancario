@@ -11,7 +11,7 @@ import suspiciousMovementRoutes from '../src/suspiciousMovements/suspiciousMovem
 import userRoutes from '../src/users/user-routes.js';
 import accountRoutes from '../src/accounts/account-routes.js';
 import loanRoutes from '../src/loans/loan-routes.js';
-import roleRoutes from '../src/roles/role-routes.js';
+import authRoutes from '../src/auth/auth-routes.js';
 
 const BASE_URL = '/veraff/v1';
 
@@ -34,8 +34,8 @@ const routes = (app) => {
     });
 
     // Módulos del sistema
+    app.use(`${BASE_URL}/auth`, authRoutes);
     app.use(`${BASE_URL}/users`, userRoutes);
-    app.use(`${BASE_URL}/roles`, roleRoutes);
     app.use(`${BASE_URL}/accounts`, accountRoutes);
     app.use(`${BASE_URL}/cards`, cardsRoutes);
     app.use(`${BASE_URL}/transfers`, transferRoutes);

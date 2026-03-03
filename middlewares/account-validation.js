@@ -3,28 +3,23 @@ import { checkValidators } from "./check-validation.js";
 
 export const validateCreateAccount = [
 
-body('user')
-  .notEmpty()
-  .withMessage('El usuario es obligatorio')
-  .isMongoId()
-  .withMessage('Debe ser un ObjectId válido'),
+  body('user')
+    .optional()
+    .isMongoId()
+    .withMessage('Debe ser un ObjectId válido'),
 
-body('accountNumber')
-  .notEmpty()
-  .withMessage('El número de cuenta es obligatorio'),
+  body('balance')
+    .optional()
+    .isNumeric()
+    .withMessage('El saldo debe ser numérico'),
 
-body('balance')
-  .optional()
-  .isNumeric()
-  .withMessage('El saldo debe ser numérico'),
+  body('type')
+    .notEmpty()
+    .withMessage('El tipo de cuenta es obligatorio')
+    .isIn(['AHORRO', 'MONETARIA'])
+    .withMessage('Tipo de cuenta inválido'),
 
-body('type')
-  .notEmpty()
-  .withMessage('El tipo de cuenta es obligatorio')
-  .isIn(['AHORRO', 'MONETARIA'])
-  .withMessage('Tipo de cuenta inválido'),
-
-checkValidators,
+  checkValidators,
 ];
 
 export const validateUpdateAccount = [

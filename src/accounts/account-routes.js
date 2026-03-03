@@ -6,7 +6,9 @@ import {
   getAccounts,
   getAccountById,
   updateAccount,
-  changeAccountStatus
+  changeAccountStatus,
+  depositMoney,
+  withdrawMoney
 } from './account-controller.js';
 
 import {
@@ -24,7 +26,7 @@ const router = Router();
 router.post(
   '/',
   verifyToken,
-  authorizeRoles('ADMIN'),
+  authorizeRoles('ADMIN', 'USER'),
   validateCreateAccount,
   createAccount
 );
@@ -62,6 +64,20 @@ router.patch(
   authorizeRoles('ADMIN'),
   validateAccountStatusChange,
   changeAccountStatus
+);
+
+router.patch(
+  '/deposit/:id',
+  verifyToken,
+  authorizeRoles('ADMIN', 'USER'),
+  depositMoney
+);
+
+router.patch(
+  '/withdraw/:id',
+  verifyToken,
+  authorizeRoles('ADMIN', 'USER'),
+  withdrawMoney
 );
 
 export default router;

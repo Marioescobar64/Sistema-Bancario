@@ -31,6 +31,25 @@ const swaggerOptions = {
             {
                 url: "http://localhost:3001/veraff/v1"
             }
+        ],
+        components: {
+            securitySchemes: {
+                bearerAuth: {
+                    type: "http",
+                    scheme: "bearer",
+                    bearerFormat: "JWT"
+                }
+            }
+        },
+        tags: [
+            { name: 'Auth', description: 'Endpoints de autenticación' },
+            { name: 'Users', description: 'Endpoints de usuarios' },
+            { name: 'Accounts', description: 'Endpoints de cuentas' },
+            { name: 'Cards', description: 'Endpoints de tarjetas' },
+            { name: 'Loans', description: 'Endpoints de préstamos' },
+            { name: 'Transfers', description: 'Endpoints de transferencias' },
+            { name: 'Audit Logs', description: 'Endpoints de auditoría' },
+            { name: 'Suspicious Movements', description: 'Endpoints de movimientos sospechosos' }
         ]
     },
     apis: ["./src/**/*.js"], // rutas donde pondrás comentarios Swagger

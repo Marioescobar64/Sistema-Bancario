@@ -3,6 +3,9 @@
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
+import swaggerUi from "swagger-ui-express";
+import swaggerJsdoc from "swagger-jsdoc";
+
 import { corsOptions } from './cors-configuration.js';
 import { dbConnection } from './db.js';
 import cardsRoutes from '../src/cards/card-routes.js';
@@ -14,6 +17,26 @@ import loanRoutes from '../src/loans/loan-routes.js';
 import authRoutes from '../src/auth/auth-routes.js';
 
 const BASE_URL = '/veraff/v1';
+
+// 🔹 Configuración Swagger
+const swaggerOptions = {
+    definition: {
+        openapi: "3.0.0",
+        info: {
+            title: "Veraff API",
+            version: "1.0.0",
+            description: "Documentación de la API de Veraff",
+        },
+        servers: [
+            {
+                url: "http://localhost:3001/veraff/v1"
+            }
+        ]
+    },
+    apis: ["./src/**/*.js"], // rutas donde pondrás comentarios Swagger
+};
+
+const swaggerSpec = swaggerJsdoc(swaggerOptions);
 
 const middlewares = (app) => {
     app.use(express.urlencoded({ extended: false, limit: '10mb' }));
@@ -41,6 +64,9 @@ const routes = (app) => {
     app.use(`${BASE_URL}/transfers`, transferRoutes);
     app.use(`${BASE_URL}/loans`, loanRoutes);
     app.use(`${BASE_URL}/suspicious`, suspiciousMovementRoutes);
+
+    // 🔹 Swagger Docs (fuera de BASE_URL para acceso directo)
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 };
 
 const initServer = async () => {
@@ -59,6 +85,7 @@ const initServer = async () => {
             console.log('=================================');
             console.log(`Servidor corriendo en puerto ${PORT}`);
             console.log(`Base URL: http://localhost:${PORT}${BASE_URL}`);
+            console.log(`Swagger Docs: http://localhost:${PORT}/api-docs`);
             console.log('=================================');
         });
 
